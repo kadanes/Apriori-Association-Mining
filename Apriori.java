@@ -11,7 +11,8 @@ class Apriori {
         Apriori apriori = new Apriori();
 
         ArrayList<ArrayList<Integer>> transactionlist = new ArrayList<ArrayList<Integer>>();
-
+        
+        /* Demo Input
         ArrayList<Integer> T1 = new ArrayList<Integer>();
         T1.add(1);
         T1.add(3);
@@ -35,22 +36,22 @@ class Apriori {
         T4.add(2);
         T4.add(5);
         transactionlist.add(T4);
+        */
 
+        int ITEM_COUNT = 0; /* Number of distince items */
+        int transactionCount; /* Number of transcations */
 
-        int ITEM_COUNT = 0;
-       
-        int transactionCount;
+        // transactionlist.clear(); /* Clear demo input */
 
-        transactionlist.clear();
         Scanner sc = new Scanner(System.in);
      
+        System.out.print("Enter minimum support value: ");
+        int support = sc.nextInt();
+        System.out.print("Enter confidence percent: ");
+        int confidence = sc.nextInt();
         System.out.print("Enter number of transactions: ");
         transactionCount = sc.nextInt();
-        System.out.println("Enter minimum support value: ");
-        int support = sc.nextInt();
-        System.out.println("Enter confidence percent: ");
-        int confidence = sc.nextInt();
-
+        
         for (int i = 1; i <= transactionCount; i += 1) {
 
             System.out.print("Enter transaction "+(i)+"(Comma Separated): ");
@@ -75,7 +76,10 @@ class Apriori {
         ArrayList<Integer> supports = new ArrayList<Integer>();
         ArrayList<Double> confidences = new ArrayList<Double>();
 
-       
+        Date d;
+        long start, end;
+        d = new Date();
+        start = d.getTime();
         for (int item = 1; item <= ITEM_COUNT; item += 1) {
 
             ArrayList<Integer> candidate = new ArrayList<>();
@@ -86,7 +90,7 @@ class Apriori {
             }
         }
 
-        System.out.println("First List: "+ first_set);
+        System.out.println("\nFirst List: "+ first_set);
 
          do {
 
@@ -105,12 +109,14 @@ class Apriori {
            
            first_set = temp;
 
-           System.out.println("Updated List: "+first_set);
+           System.out.println("Updated List(greater than support): "+first_set);
 
         }   while ( first_set.size() > 1 && first_set.get(0).size() <= 2 );
 
+        d = new Date();
+        end = d.getTime();
 
-        System.out.println("\nAssociation rules are\n");
+        System.out.println("\nAssociation rules are:\n");
 
         for (ArrayList<Integer> frequentSet: first_set) {
 
@@ -122,9 +128,9 @@ class Apriori {
 
         System.out.println("  Rule    Support   Confidence(%)");     
         for (int i = 0; i < associationRules.size(); i += 1) {
-            System.out.println(associationRules.get(i) + "      " + supports.get(i) + "         " + confidences.get(i) );
+            System.out.println(associationRules.get(i) + "        " + supports.get(i) + "       " + confidences.get(i) );
 
-            if (confidences.get(i) > confidence) {
+            if (confidences.get(i) >= confidence) {
                 ArrayList<String> rule = new ArrayList<String>();
                 rule.add( associationRules.get(i));
                 rule.add(""+supports.get(i));
@@ -133,10 +139,16 @@ class Apriori {
                 finalRules.add(rule);
             }
         }
-       System.out.println("Final rules are:");
+       System.out.println("\nRules with confidence more than "+confidence+":\n\n  Rule    Support   Confidence(%)");
         for (ArrayList<String> rule: finalRules) {
-            System.out.println(rule);
+           for (String element: rule) {
+               System.out.print(element+"        ");
+           }
+           System.out.println();
         }
+
+        System.out.println("\nExecution time is: "+((double)(end-start)/1000) + " seconds.");
+
     }
 
     int countOccourance(ArrayList<Integer> candidate, ArrayList<ArrayList<Integer>> transactions) {
