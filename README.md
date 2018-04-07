@@ -12,8 +12,8 @@ while ( first_set.size() > 1 && first_set.get(0).size() <= 2 );
 #### Minimum support is provided as number of occourance and not percent 
 #### Confidence is provided as percent
 
-![Full Output](https://github.com/parthv21/Apriori-Association-Mining-Java-/blob/master/Outputs/full.png)
+![Full Output](https://drive.google.com/open?id=1A1jF81lOYWvvwkg52877YtFuhr6NjEiB)
 
-![Candidates](https://github.com/parthv21/Apriori-Association-Mining-Java-/blob/master/Outputs/Candidates.png)
+![Candidates](https://drive.google.com/open?id=1lgsuN2NLAG4dljomZWbOC29QBQ7ugh1b)
 
 ![Rules](https://github.com/parthv21/Apriori-Association-Mining-Java-/blob/master/Outputs/Rules.png)
